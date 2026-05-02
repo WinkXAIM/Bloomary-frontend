@@ -1,0 +1,149 @@
+.story-page {
+  position: relative;
+  width: 375px;
+  min-height: 860px;
+  margin: 0 auto;
+  background: #ffffff;
+  color: #1a1a1a;
+}
+
+.story-back-button {
+  position: absolute;
+  top: 38px;
+  left: 20px;
+  border: none;
+  background: none;
+  font-size: 24px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.story-title {
+  position: absolute;
+  top: 36px;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.story-card {
+  position: absolute;
+  top: 110px;
+  left: 52px;
+  width: 270px;
+  height: 480px;
+  border-radius: 12px;
+  background: #262626;
+  overflow: hidden;
+}
+
+.story-image-box {
+  position: absolute;
+  top: 40px;
+  left: 20px;
+  width: 230px;
+  height: 280px;
+  border-radius: 10px;
+  background: #f2f2f2;
+}
+
+.story-flower-icons {
+  position: absolute;
+  top: 110px;
+  left: 65px;
+  font-size: 36px;
+}
+
+.story-message {
+  position: absolute;
+  top: 341px;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  color: white;
+  text-align: center;
+  font-size: 15px;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.story-flowers {
+  position: absolute;
+  top: 403px;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  color: #8c8c8c;
+  text-align: center;
+  font-size: 11px;
+}
+
+.story-brand {
+  position: absolute;
+  top: 440px;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  color: white;
+  text-align: center;
+  font-size: 14px;
+}
+
+.story-theme-buttons {
+  position: absolute;
+  top: 600px;
+  left: 56px;
+  display: flex;
+  gap: 2px;
+}
+
+.theme-button {
+  width: 130px;
+  height: 36px;
+  border-radius: 5px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.theme-button.dark {
+  border: 1px solid #1a1a1a;
+  background: #1a1a1a;
+  color: white;
+}
+
+.theme-button.light {
+  border: 1px solid #1a1a1a;
+  background: white;
+  color: #1a1a1a;
+}
+
+.save-image-button {
+  position: absolute;
+  top: 720px;
+  left: 40px;
+  width: 295px;
+  height: 46px;
+  border: 1px solid #1a1a1a;
+  border-radius: 5px;
+  background: white;
+  color: #1a1a1a;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.go-home-button {
+  position: absolute;
+  top: 774px;
+  left: 40px;
+  width: 295px;
+  height: 46px;
+  border: 1px solid #1a1a1a;
+  border-radius: 5px;
+  background: white;
+  color: #1a1a1a;
+  font-size: 13px;
+  cursor: pointer;
+}

@@ -1,0 +1,130 @@
+.recommend-page {
+  position: relative;
+  width: 375px;
+  min-height: 812px;
+  margin: 0 auto;
+  background: #ffffff;
+  color: #1a1a1a;
+}
+
+.recommend-back-button {
+  position: absolute;
+  top: 38px;
+  left: 20px;
+  border: none;
+  background: none;
+  font-size: 24px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.recommend-title {
+  position: absolute;
+  top: 36px;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.recommend-question {
+  position: absolute;
+  top: 120px;
+  left: 40px;
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.recommend-input {
+  position: absolute;
+  top: 185px;
+  left: 40px;
+  width: 295px;
+  height: 192px;
+  padding: 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  resize: none;
+  outline: none;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.recommend-input::placeholder {
+  color: #8c8c8c;
+}
+
+.recommend-submit-button {
+  position: absolute;
+  top: 406px;
+  left: 40px;
+  width: 295px;
+  height: 50px;
+  border: none;
+  border-radius: 5px;
+  background: #1a1a1a;
+  color: #ffffff;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.recommend-section-label {
+  position: absolute;
+  top: 499px;
+  left: 40px;
+  margin: 0;
+  color: #8c8c8c;
+  font-size: 12px;
+}
+
+.recommend-line {
+  position: absolute;
+  top: 524px;
+  left: 40px;
+  width: 295px;
+  height: 1px;
+  background: #e0e0e0;
+}
+
+.recommend-result {
+  position: absolute;
+  top: 575px;
+  left: 40px;
+  width: 295px;
+}
+
+.recommend-result h2 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.recommend-flowers {
+  margin: 14px 0 0;
+  font-size: 14px;
+}
+
+.recommend-message {
+  margin: 22px 0 0;
+  color: #8c8c8c;
+  font-size: 13px;
+}
+
+.recommend-again-button {
+  position: absolute;
+  top: 720px;
+  left: 40px;
+  width: 295px;
+  height: 46px;
+  border: 1px solid #1a1a1a;
+  border-radius: 5px;
+  background: #ffffff;
+  color: #1a1a1a;
+  font-size: 13px;
+  cursor: pointer;
+}

@@ -1,0 +1,109 @@
+.home-page {
+  position: relative;
+  width: 375px;
+  min-height: 812px;
+  margin: 0 auto;
+  background: #ffffff;
+  color: #1a1a1a;
+}
+
+/* 로고 */
+
+.home-logo {
+  position: absolute;
+  top: 38px;
+  width: 100%;
+  text-align: center;
+  font-size: 24px;
+  margin: 0;
+}
+
+/* 인사 */
+
+.home-greeting {
+  position: absolute;
+  top: 120px;
+  left: 40px;
+}
+
+.home-greeting p {
+  margin: 0;
+  font-size: 22px;
+}
+
+.home-greeting .bold {
+  font-weight: 700;
+}
+
+/* 카드 */
+
+.home-card {
+  position: absolute;
+  top: 210px;
+  left: 40px;
+  width: 295px;
+  height: 180px;
+  padding: 24px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  background: white;
+  box-sizing: border-box;
+}
+
+.home-card.second {
+  top: 410px;
+}
+
+.home-card h2 {
+  margin: 0;
+  font-size: 17px;
+}
+
+.home-card p {
+  margin-top: 12px;
+  color: #8c8c8c;
+  font-size: 14px;
+}
+
+/* 버튼 */
+
+.home-card button {
+  position: absolute;
+  bottom: 20px;
+  left: 24px;
+  width: 110px;
+  height: 38px;
+  border: none;
+  border-radius: 5px;
+  background: #1a1a1a;
+  color: white;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* 히스토리 */
+
+.history-button {
+  position: absolute;
+  top: 620px;
+  left: 40px;
+  width: 295px;
+  height: 50px;
+  border: none;
+  background: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* 로그아웃 */
+
+.logout-button {
+  position: absolute;
+  top: 750px;
+  width: 100%;
+  border: none;
+  background: none;
+  color: #8c8c8c;
+  font-size: 12px;
+  cursor: pointer;
+}
