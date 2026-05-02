@@ -1,4 +1,4 @@
-# Flowary-frontend
+# Bloomary-frontend
 
 ## 협업 방식
 
