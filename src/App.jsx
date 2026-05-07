@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Login from "./pages/Login";
 import Home from "./pages/Home";
@@ -14,6 +14,23 @@ function App() {
 
   // ⭐ 어디서 result로 왔는지 기억
   const [fromPage, setFromPage] = useState(null);
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get("code");
+
+    if (code) {
+      console.log("✅ 카카오 로그인 성공! 인가 코드:", code);
+      localStorage.setItem("isLoggedIn", "true");
+      window.history.replaceState({}, document.title, window.location.pathname);
+      setPage("home");
+    } else {
+      const isLoggedIn = localStorage.getItem("isLoggedIn");
+      if (isLoggedIn === "true") {
+        setPage("home");
+      }
+    }
+  }, []);
 
   if (page === "login") {
     return <Login onLogin={() => setPage("home")} />;
