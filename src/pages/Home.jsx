@@ -21,13 +21,13 @@ function Home({ onGoAnalyze, onGoHistory, onGoRecommend }) {
         </section>
 
     <section className="home-card second">
-        <button onClick={onGoRecommend}>추천받기 →</button>
+        <h2>꽃다발 추천받기</h2>
         <p>
             상황을 알려주시면
             <br />
             어울리는 꽃을 추천해요
         </p>
-        <button>추천받기 →</button>
+        <button onClick={onGoRecommend}>추천받기 →</button>
     </section>
 
     <button className="history-button" onClick={onGoHistory}>📋 분석 히스토리 보기</button>

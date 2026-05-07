@@ -22,8 +22,9 @@
 
 .home-greeting {
   position: absolute;
-  top: 120px;
+  top: 125px;
   left: 40px;
+  text-align: left;
 }
 
 .home-greeting p {
@@ -33,6 +34,7 @@
 
 .home-greeting .bold {
   font-weight: 700;
+  margin-top: 8px;
 }
 
 /* 카드 */
@@ -48,6 +50,7 @@
   border-radius: 5px;
   background: white;
   box-sizing: border-box;
+  text-align: left;
 }
 
 .home-card.second {
@@ -60,9 +63,10 @@
 }
 
 .home-card p {
-  margin-top: 12px;
+  margin-top: 10px;
   color: #8c8c8c;
   font-size: 14px;
+  line-height: 1.4;
 }
 
 /* 버튼 */
@@ -101,6 +105,8 @@
   position: absolute;
   top: 750px;
   width: 100%;
+  left: 0;
+  text-align: center;
   border: none;
   background: none;
   color: #8c8c8c;
