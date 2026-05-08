@@ -1,34 +1,73 @@
+:root {
+  --bloomary-text: #1a1a1a;
+  --bloomary-muted: #8c8c8c;
+  --bloomary-surface: #ffffff;
+  --bloomary-soft-gray: #f2f2f2;
+  --bloomary-border: #e0e0e0;
+}
+
 .app-page {
   position: relative;
   width: 375px;
   min-height: 812px;
   margin: 0 auto;
-  background: #ffffff;
-  color: #1a1a1a;
+  background: var(--bloomary-surface);
+  color: var(--bloomary-text);
 }
 
 .page-back-button {
   position: absolute;
-  top: 38px;
-  left: 20px;
+  z-index: 10;
+  top: 28px;
+  left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
   border: none;
+  border-radius: 50%;
   background: none;
-  color: #1a1a1a;
+  color: var(--bloomary-text);
   font-size: 24px;
   font-weight: 700;
+  line-height: 1;
   cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.page-back-button:hover {
+  background: var(--bloomary-soft-gray);
+}
+
+.page-back-button:active {
+  transform: scale(0.94);
+}
+
+.page-back-button:focus-visible {
+  outline: 2px solid var(--bloomary-text);
+  outline-offset: 2px;
+}
+
+.page-back-button span {
+  display: block;
 }
 
 .page-title {
   position: absolute;
+  z-index: 1;
   top: 36px;
   left: 0;
   width: 100%;
   margin: 0;
-  color: #1a1a1a;
+  color: var(--bloomary-text);
   text-align: center;
   font-size: 20px;
   font-weight: 700;
+  pointer-events: none;
 }
 
 .app-button {
@@ -39,30 +78,30 @@
 
 .app-button-primary {
   border: none;
-  background: #1a1a1a;
-  color: #ffffff;
+  background: var(--bloomary-text);
+  color: var(--bloomary-surface);
 }
 
 .app-button-secondary {
-  border: 1px solid #1a1a1a;
-  background: #ffffff;
-  color: #1a1a1a;
+  border: 1px solid var(--bloomary-text);
+  background: var(--bloomary-surface);
+  color: var(--bloomary-text);
 }
 
 .app-button-ghost {
   border: none;
   background: transparent;
-  color: #8c8c8c;
+  color: var(--bloomary-muted);
 }
 
 .section-label {
   margin: 0;
-  color: #8c8c8c;
+  color: var(--bloomary-muted);
   font-size: 12px;
   font-weight: 500;
 }
 
 .section-line {
   height: 1px;
-  background: #e0e0e0;
+  background: var(--bloomary-border);
 }
