@@ -1,4 +1,8 @@
 import { useState } from "react";
+import AppButton from "../components/common/AppButton";
+import BackButton from "../components/common/BackButton";
+import PageShell from "../components/common/PageShell";
+import PageTitle from "../components/common/PageTitle";
 import "./Analyze.css";
 
 function Analyze({ onBack, onAnalyze }) {
@@ -14,12 +18,10 @@ function Analyze({ onBack, onAnalyze }) {
   };
 
   return (
-    <main className="analyze-page">
-      <button className="analyze-back-button" onClick={onBack}>
-        &lt;
-      </button>
+    <PageShell className="analyze-page">
+      <BackButton onClick={onBack} />
 
-      <h1 className="analyze-title">꽃말 확인</h1>
+      <PageTitle>꽃말 확인</PageTitle>
 
       <label className="upload-box">
         {preview ? (
@@ -39,8 +41,10 @@ function Analyze({ onBack, onAnalyze }) {
         />
       </label>
 
-      <button className="analyze-button" onClick={onAnalyze}>분석하기</button>
-    </main>
+      <AppButton className="analyze-button" onClick={onAnalyze}>
+        분석하기
+      </AppButton>
+    </PageShell>
   );
 }
 

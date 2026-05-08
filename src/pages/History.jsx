@@ -1,3 +1,7 @@
+import AppButton from "../components/common/AppButton";
+import BackButton from "../components/common/BackButton";
+import PageShell from "../components/common/PageShell";
+import PageTitle from "../components/common/PageTitle";
 import "./History.css";
 
 const historyList = [
@@ -25,19 +29,17 @@ const historyList = [
 
 function History({ onBack, onView }) {
   return (
-    <main className="history-page">
-      <button className="history-back-button" onClick={onBack}>
-        &lt;
-      </button>
+    <PageShell className="history-page">
+      <BackButton onClick={onBack} />
 
-      <h1 className="history-title">분석 히스토리</h1>
+      <PageTitle>분석 히스토리</PageTitle>
 
       <p className="history-count">총 4개의 분석 기록</p>
 
       <section className="history-list">
         {historyList.map((item, index) => (
           <article className="history-card" key={index}>
-            <div className="history-thumb">🌸</div>
+            <div className="history-thumb">꽃</div>
 
             <div className="history-info">
               <p className="history-date">{item.date}</p>
@@ -45,15 +47,15 @@ function History({ onBack, onView }) {
               <p className="history-meaning">{item.meaning}</p>
             </div>
 
-            <button className="history-view-button" onClick={onView}>
+            <AppButton className="history-view-button" onClick={onView}>
               보기
-            </button>
+            </AppButton>
           </article>
         ))}
       </section>
 
-      <p className="history-notice">최근 30일간의 기록이 표시됩니다</p>
-    </main>
+      <p className="history-notice">최근 30일간의 기록을 표시합니다</p>
+    </PageShell>
   );
 }
 

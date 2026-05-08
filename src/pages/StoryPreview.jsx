@@ -1,17 +1,19 @@
+import AppButton from "../components/common/AppButton";
+import BackButton from "../components/common/BackButton";
+import PageShell from "../components/common/PageShell";
+import PageTitle from "../components/common/PageTitle";
 import "./StoryPreview.css";
 
 function StoryPreview({ onBack, onGoHome }) {
   return (
-    <main className="story-page">
-      <button className="story-back-button" onClick={onBack}>
-        &lt;
-      </button>
+    <PageShell className="story-page">
+      <BackButton onClick={onBack} />
 
-      <h1 className="story-title">스토리 미리보기</h1>
+      <PageTitle>스토리 미리보기</PageTitle>
 
       <section className="story-card">
         <div className="story-image-box">
-          <span className="story-flower-icons">🌸🌹💐</span>
+          <span className="story-flower-icons">꽃</span>
         </div>
 
         <p className="story-message">
@@ -28,20 +30,18 @@ function StoryPreview({ onBack, onGoHome }) {
       </section>
 
       <div className="story-theme-buttons">
-        <button className="theme-button dark">다크</button>
-        <button className="theme-button light">라이트</button>
+        <AppButton className="theme-button dark">다크</AppButton>
+        <AppButton className="theme-button light" variant="secondary">라이트</AppButton>
       </div>
 
-      <button className="save-image-button">
+      <AppButton className="save-image-button" variant="secondary">
         이미지 저장하기
-      </button>
+      </AppButton>
 
-      <button className="save-image-button">이미지 저장하기</button>
-
-      <button className="go-home-button" onClick={onGoHome}>
+      <AppButton className="go-home-button" variant="secondary" onClick={onGoHome}>
         홈으로 돌아가기
-      </button>
-    </main>
+      </AppButton>
+    </PageShell>
   );
 }
 
