@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 
 import Login from "./pages/Login";
 import Home from "./pages/Home";
@@ -10,99 +11,95 @@ import History from "./pages/History";
 import Recommend from "./pages/Recommend";
 
 function App() {
-  const [page, setPage] = useState("login");
-
-  // ⭐ 어디서 result로 왔는지 기억
-  const [fromPage, setFromPage] = useState(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
+    const urlParams = new URLSearchParams(location.search);
     const code = urlParams.get("code");
 
     if (code) {
-      console.log("✅ 카카오 로그인 성공! 인가 코드:", code);
+      console.log("Kakao login success. auth code:", code);
       localStorage.setItem("isLoggedIn", "true");
-      window.history.replaceState({}, document.title, window.location.pathname);
-      setPage("home");
-    } else {
-      const isLoggedIn = localStorage.getItem("isLoggedIn");
-      if (isLoggedIn === "true") {
-        setPage("home");
-      }
+      navigate("/home", { replace: true });
+      return;
     }
-  }, []);
 
-  if (page === "login") {
-    return <Login onLogin={() => setPage("home")} />;
-  }
-
-  if (page === "analyze") {
-    return (
-      <Analyze
-        onBack={() => setPage("home")}
-        onAnalyze={() => setPage("detected")}
-      />
-    );
-  }
-
-  if (page === "detected") {
-    return (
-      <DetectedFlowers
-        onBack={() => setPage("analyze")}
-
-        onGoResult={() => {
-          setFromPage("detected"); // ⭐ detected에서 왔다 기록
-          setPage("result");
-        }}
-      />
-    );
-  }
-
-  if (page === "result") {
-    return (
-      <Result
-        onBack={() => setPage(fromPage)} // ⭐ 이전 페이지로 돌아감
-        onGoStory={() => setPage("story")}
-      />
-    );
-  }
-
-  if (page === "story") {
-    return (
-      <StoryPreview
-        onBack={() => setPage("result")}
-        onGoHome={() => setPage("home")}
-      />
-    );
-  }
-
-  if (page === "history") {
-    return (
-      <History
-        onBack={() => setPage("home")}
-
-        onView={() => {
-          setFromPage("history"); // ⭐ history에서 왔다 기록
-          setPage("result");
-        }}
-      />
-    );
-  }
-
-  if (page === "recommend") {
-    return (
-      <Recommend
-        onBack={() => setPage("home")}
-      />
-    );
-  }
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    if (isLoggedIn === "true" && location.pathname === "/") {
+      navigate("/home", { replace: true });
+    }
+  }, [location.pathname, location.search, navigate]);
 
   return (
-    <Home
-      onGoAnalyze={() => setPage("analyze")}
-      onGoHistory={() => setPage("history")}
-      onGoRecommend={() => setPage("recommend")}
-    />
+    <Routes>
+      <Route path="/" element={<Login onLogin={() => navigate("/home")} />} />
+      <Route
+        path="/home"
+        element={
+          <Home
+            onGoAnalyze={() => navigate("/analyze")}
+            onGoHistory={() => navigate("/history")}
+            onGoRecommend={() => navigate("/recommend")}
+          />
+        }
+      />
+      <Route
+        path="/analyze"
+        element={
+          <Analyze
+            onBack={() => navigate("/home")}
+            onAnalyze={() => navigate("/detected")}
+          />
+        }
+      />
+      <Route
+        path="/detected"
+        element={
+          <DetectedFlowers
+            onBack={() => navigate("/analyze")}
+            onGoResult={() => navigate("/result", { state: { from: "/detected" } })}
+          />
+        }
+      />
+      <Route
+        path="/result"
+        element={
+          <Result
+            onBack={() => navigate(location.state?.from ?? "/detected")}
+            onGoStory={() =>
+              navigate("/story", {
+                state: { from: location.state?.from ?? "/detected" },
+              })
+            }
+          />
+        }
+      />
+      <Route
+        path="/story"
+        element={
+          <StoryPreview
+            onBack={() =>
+              navigate("/result", {
+                state: { from: location.state?.from ?? "/detected" },
+              })
+            }
+            onGoHome={() => navigate("/home")}
+          />
+        }
+      />
+      <Route
+        path="/history"
+        element={
+          <History
+            onBack={() => navigate("/home")}
+            onView={() => navigate("/result", { state: { from: "/history" } })}
+          />
+        }
+      />
+      <Route path="/recommend" element={<Recommend onBack={() => navigate("/home")} />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }
 
