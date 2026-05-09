@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import PageShell from "../components/common/PageShell";
+import LeonSansLogo from "../components/LeonSansLogo";
 import "./Login.css";
 
 function Login({ onLogin }) {
@@ -24,7 +25,7 @@ function Login({ onLogin }) {
   return (
     <PageShell className="login-page">
       <section className="login-logo-box">
-        <h1 className="login-title">Bloomary</h1>
+        <LeonSansLogo text="Bloomary" size={50} color="#1a1a1a" />
         <p className="login-subtitle">GGOTTMAL</p>
       </section>
 
