@@ -1,11 +1,12 @@
 import AppButton from "../components/common/AppButton";
 import PageShell from "../components/common/PageShell";
+import LeonSansLogo from "../components/LeonSansLogo";
 import "./Home.css";
 
 function Home({ onGoAnalyze, onGoHistory, onGoRecommend }) {
   return (
     <PageShell className="home-page">
-      <h1 className="home-logo">Bloomary</h1>
+      <LeonSansLogo text="Bloomary" size={32} color="#1a1a1a" />
 
       <section className="home-greeting">
         <p>안녕하세요</p>
