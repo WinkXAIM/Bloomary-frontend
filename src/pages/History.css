@@ -17,12 +17,13 @@
 .history-card {
   position: relative;
   width: 335px;
-  height: 130px;
+  height: 165px;
   margin-bottom: 15px;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   background: #ffffff;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .history-thumb {
@@ -39,10 +40,19 @@
   font-size: 28px;
 }
 
+.history-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
 .history-info {
   position: absolute;
   top: 19px;
   left: 119px;
+  right: 20px;
+  overflow: hidden;
 }
 
 .history-date {
@@ -51,25 +61,92 @@
   font-size: 12px;
 }
 
-.history-info h2 {
+.history-flower-name {
   margin: 8px 0 0;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
+  color: #1a1a1a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .history-meaning {
-  margin: 14px 0 0;
+  margin: 6px 0 0;
   color: #8c8c8c;
   font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.history-delete-button {
+  position: absolute;
+  right: 76px;
+  bottom: 12px;
+  top: auto;
+  left: auto;
+  width: 56px;
+  height: 28px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  background: #ffffff;
+  color: #8c8c8c;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.history-delete-button:hover {
+  background: #fff5f5;
+  border-color: #ffb3b3;
+  color: #e53935;
 }
 
 .history-view-button {
   position: absolute;
-  right: 20px;
+  right: 12px;
   bottom: 12px;
+  top: auto;
+  left: auto;
   width: 60px;
   height: 28px;
   font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.history-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 0;
+  gap: 8px;
+}
+
+.history-empty-icon {
+  margin: 0;
+  font-size: 40px;
+}
+
+.history-empty-text {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #3d3d3d;
+}
+
+.history-empty-sub {
+  margin: 0;
+  font-size: 13px;
+  color: #8c8c8c;
 }
 
 .history-notice {
