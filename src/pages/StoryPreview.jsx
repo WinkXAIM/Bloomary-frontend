@@ -3,15 +3,19 @@ import BackButton from "../components/common/BackButton";
 import PageShell from "../components/common/PageShell";
 import PageTitle from "../components/common/PageTitle";
 import "./StoryPreview.css";
+import React, { useState } from "react";
 
 function StoryPreview({ onBack, onGoHome }) {
+
+  const [theme, setTheme] = useState("dark"); //기본값 : dark
+
   return (
     <PageShell className="story-page">
       <BackButton onClick={onBack} />
 
       <PageTitle>스토리 미리보기</PageTitle>
 
-      <section className="story-card">
+      <section className={`story-card ${theme}`}>
         <div className="story-image-box">
           <span className="story-flower-icons">꽃</span>
         </div>
@@ -30,8 +34,8 @@ function StoryPreview({ onBack, onGoHome }) {
       </section>
 
       <div className="story-theme-buttons">
-        <AppButton className="theme-button dark">다크</AppButton>
-        <AppButton className="theme-button light" variant="secondary">라이트</AppButton>
+        <AppButton className="theme-button dark" onClick={() => setTheme("dark")}>다크</AppButton>
+        <AppButton className="theme-button light" variant="secondary" onClick={() => setTheme("light")}>라이트</AppButton>
       </div>
 
       <AppButton className="save-image-button" variant="secondary">

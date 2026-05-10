@@ -7,6 +7,31 @@
   border-radius: 12px;
   background: #262626;
   overflow: hidden;
+  transition: background-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* 다크 모드 스타일 */
+.story-card.dark {
+  background: #262626;
+  box-shadow: none;
+}
+.story-card.dark .story-message,
+.story-card.dark .story-brand {
+  color: white;
+  transition: color 0.4s ease;
+}
+
+/* 라이트 모드 스타일 */
+.story-card.light {
+  background: #ffffff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+.story-card.light .story-message,
+.story-card.light .story-brand {
+  color: #262626; /* 글자색을 어둡게 */
+}
+.story-card.light .story-flowers {
+  color: #8c8c8c;
 }
 
 .story-image-box {
@@ -17,12 +42,19 @@
   height: 280px;
   border-radius: 10px;
   background: #f2f2f2;
+
+  display: flex;           
+  justify-content: center; /* '꽃'글자를 가로 방향 정중앙으로 정렬 */
+  align-items: center;     /* '꽃'글자를 세로 방향 정중앙으로 정렬 */
+
+  transition: background-color 0.4s ease;
 }
 
 .story-flower-icons {
-  position: absolute;
+  /*position: absolute;
   top: 110px;
   left: 65px;
+  */
   font-size: 36px;
 }
 
