@@ -34,7 +34,7 @@ function Home({ onGoAnalyze, onGoHistory, onGoRecommend }) {
       </section>
 
       <AppButton className="history-button" variant="ghost" onClick={onGoHistory}>
-        분석 히스토리 보기
+        📋 분석 히스토리 보기
       </AppButton>
 
       <AppButton className="logout-button" variant="ghost">

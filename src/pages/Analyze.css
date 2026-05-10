@@ -1,8 +1,8 @@
 .upload-box {
   position: absolute;
-  top: 101px;
-  left: 20px;
-  width: 335px;
+  top: 93px;
+  left: 40px;
+  width: 295px;
   height: 596px;
   border: 1px dashed #e0e0e0;
   border-radius: 5px;
@@ -13,18 +13,22 @@
 
 .upload-plus {
   position: absolute;
-  top: 238px;
-  left: 144px;
+  top: 230px;
+  left: 0;
+  width: 100%;
   color: #8c8c8c;
+  text-align: center;
   font-size: 40px;
   font-weight: 300;
 }
 
 .upload-text {
   position: absolute;
-  top: 302px;
-  left: 99px;
+  top: 294px;
+  left: 0;
+  width: 100%;
   color: #8c8c8c;
+  text-align: center;
   font-size: 16px;
 }
 
@@ -41,8 +45,27 @@
 .analyze-button {
   position: absolute;
   top: 720px;
-  left: 20px;
-  width: 335px;
+  left: 40px;
+  width: 295px;
   height: 50px;
   font-size: 14px;
+}
+
+@media (max-width: 480px) and (max-height: 760px) {
+  .upload-box {
+    top: 80px;
+    height: 500px;
+  }
+
+  .upload-plus {
+    top: 190px;
+  }
+
+  .upload-text {
+    top: 252px;
+  }
+
+  .analyze-button {
+    top: 610px;
+  }
 }
