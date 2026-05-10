@@ -1,6 +1,6 @@
 .history-count {
   position: absolute;
-  top: 105px;
+  top: 97px;
   left: 20px;
   margin: 0;
   color: #8c8c8c;
@@ -9,7 +9,7 @@
 
 .history-list {
   position: absolute;
-  top: 140px;
+  top: 132px;
   left: 20px;
   width: 335px;
 }
@@ -151,11 +151,41 @@
 
 .history-notice {
   position: absolute;
-  top: 750px;
+  top: 742px;
   left: 0;
   width: 100%;
   margin: 0;
   text-align: center;
   color: #8c8c8c;
-  font-size: 11px;
+  font-size: 12px;
+}
+
+@media (max-width: 480px) and (max-height: 760px) {
+  .history-count {
+    top: 80px;
+  }
+
+  .history-list {
+    top: 108px;
+  }
+
+  .history-card {
+    height: 140px;
+    margin-bottom: 12px;
+  }
+
+  .history-thumb {
+    top: 15px;
+    width: 76px;
+    height: 76px;
+  }
+
+  .history-info {
+    top: 15px;
+    left: 108px;
+  }
+
+  .history-notice {
+    top: 642px;
+  }
 }

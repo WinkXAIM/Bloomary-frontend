@@ -1,10 +1,6 @@
-.story-page {
-  min-height: 860px;
-}
-
 .story-card {
   position: absolute;
-  top: 110px;
+  top: 102px;
   left: 52px;
   width: 270px;
   height: 480px;
@@ -51,7 +47,7 @@
   margin: 0;
   color: #8c8c8c;
   text-align: center;
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .story-brand {
@@ -76,7 +72,7 @@
 .theme-button {
   width: 130px;
   height: 36px;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .theme-button.dark {
@@ -92,18 +88,57 @@
 
 .save-image-button {
   position: absolute;
-  top: 720px;
+  top: 666px;
   left: 40px;
   width: 295px;
   height: 46px;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .go-home-button {
   position: absolute;
-  top: 774px;
+  top: 720px;
   left: 40px;
   width: 295px;
   height: 46px;
-  font-size: 13px;
+  font-size: 14px;
+}
+
+@media (max-width: 480px) {
+  .story-card {
+    top: 80px;
+    height: 410px;
+  }
+
+  .story-image-box {
+    height: 230px;
+  }
+
+  .story-flower-icons {
+    top: 88px;
+  }
+
+  .story-message {
+    top: 280px;
+  }
+
+  .story-flowers {
+    top: 342px;
+  }
+
+  .story-brand {
+    top: 374px;
+  }
+
+  .story-theme-buttons {
+    top: 506px;
+  }
+
+  .save-image-button {
+    top: 558px;
+  }
+
+  .go-home-button {
+    top: 610px;
+  }
 }

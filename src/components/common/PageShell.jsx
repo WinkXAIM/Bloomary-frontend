@@ -1,5 +1,11 @@
 function PageShell({ className = "", children }) {
-  return <main className={`app-page ${className}`.trim()}>{children}</main>;
+  const pageClassName = className.trim();
+
+  return (
+    <main className={`app-viewport ${pageClassName}`.trim()}>
+      <div className={`app-page ${pageClassName}`.trim()}>{children}</div>
+    </main>
+  );
 }
 
 export default PageShell;

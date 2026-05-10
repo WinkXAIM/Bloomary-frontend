@@ -1,8 +1,8 @@
 .detected-image-box {
   position: absolute;
-  top: 100px;
-  left: 20px;
-  width: 335px;
+  top: 92px;
+  left: 40px;
+  width: 295px;
   height: 280px;
   border-radius: 5px;
   background: #f2f2f2;
@@ -46,24 +46,24 @@
 
 .detected-section-title {
   position: absolute;
-  top: 400px;
-  left: 20px;
+  top: 392px;
+  left: 40px;
   margin: 0;
   font-size: 14px;
 }
 
 .detected-line {
   position: absolute;
-  top: 425px;
-  left: 20px;
-  width: 335px;
+  top: 417px;
+  left: 40px;
+  width: 295px;
 }
 
 .detected-list {
   position: absolute;
-  top: 445px;
-  left: 20px;
-  width: 335px;
+  top: 437px;
+  left: 40px;
+  width: 295px;
 }
 
 .detected-item {
@@ -97,18 +97,49 @@
 
 .flower-meaning-button {
   position: absolute;
-  top: 683px;
-  left: 20px;
-  width: 335px;
+  top: 672px;
+  left: 40px;
+  width: 295px;
   height: 50px;
   font-size: 14px;
 }
 
 .retry-button {
   position: absolute;
-  top: 744px;
-  left: 20px;
-  width: 335px;
+  top: 734px;
+  left: 40px;
+  width: 295px;
   height: 44px;
   font-size: 14px;
+}
+
+@media (max-width: 480px) and (max-height: 760px) {
+  .detected-image-box {
+    top: 80px;
+    height: 230px;
+  }
+
+  .detected-section-title {
+    top: 328px;
+  }
+
+  .detected-line {
+    top: 353px;
+  }
+
+  .detected-list {
+    top: 372px;
+  }
+
+  .detected-item {
+    height: 52px;
+  }
+
+  .flower-meaning-button {
+    top: 582px;
+  }
+
+  .retry-button {
+    top: 638px;
+  }
 }

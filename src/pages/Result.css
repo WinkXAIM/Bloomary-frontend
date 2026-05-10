@@ -1,6 +1,6 @@
 .result-image-box {
   position: absolute;
-  top: 110px;
+  top: 102px;
   left: 40px;
   width: 295px;
   height: 250px;
@@ -10,7 +10,7 @@
 
 .result-flower-icon {
   position: absolute;
-  top: 105px;
+  top: 97px;
   left: 128px;
   font-size: 40px;
 }
@@ -21,11 +21,11 @@
 }
 
 .flower-label {
-  top: 383px;
+  top: 375px;
 }
 
 .ai-label {
-  top: 603px;
+  top: 595px;
 }
 
 .result-line {
@@ -35,16 +35,16 @@
 }
 
 .flower-line {
-  top: 408px;
+  top: 400px;
 }
 
 .ai-line {
-  top: 628px;
+  top: 620px;
 }
 
 .flower-meaning-list {
   position: absolute;
-  top: 428px;
+  top: 420px;
   left: 40px;
   width: 295px;
 }
@@ -67,7 +67,7 @@
 
 .ai-message {
   position: absolute;
-  top: 641px;
+  top: 633px;
   left: 40px;
   margin: 0;
   font-size: 14px;
@@ -76,18 +76,18 @@
 
 .story-preview-button {
   position: absolute;
-  top: 683px;
-  left: 20px;
-  width: 335px;
+  top: 720px;
+  left: 40px;
+  width: 295px;
   height: 50px;
   font-size: 14px;
 }
 
 .result-bottom-button {
   position: absolute;
-  top: 744px;
-  left: 20px;
-  width: 335px;
+  top: 720px;
+  left: 40px;
+  width: 295px;
   height: 50px;
   border: none;
   border-radius: 5px;
@@ -95,4 +95,48 @@
   color: #1a1a1a;
   font-size: 14px;
   cursor: pointer;
+}
+
+@media (max-width: 480px) and (max-height: 760px) {
+  .result-image-box {
+    top: 80px;
+    height: 200px;
+  }
+
+  .result-flower-icon {
+    top: 74px;
+  }
+
+  .flower-label {
+    top: 300px;
+  }
+
+  .flower-line {
+    top: 325px;
+  }
+
+  .flower-meaning-list {
+    top: 344px;
+  }
+
+  .flower-meaning-item {
+    margin-bottom: 14px;
+  }
+
+  .ai-label {
+    top: 517px;
+  }
+
+  .ai-line {
+    top: 542px;
+  }
+
+  .ai-message {
+    top: 556px;
+  }
+
+  .story-preview-button,
+  .result-bottom-button {
+    top: 610px;
+  }
 }

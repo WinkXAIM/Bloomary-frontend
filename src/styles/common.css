@@ -6,19 +6,93 @@
   --bloomary-border: #e0e0e0;
 }
 
+html {
+  width: 100%;
+  background: var(--bloomary-soft-gray);
+  overflow-x: hidden;
+}
+
+body {
+  width: 100%;
+  min-width: 320px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: var(--bloomary-soft-gray);
+}
+
+#root {
+  width: 100%;
+  min-height: 100svh;
+  margin: 0;
+  border: 0;
+  display: block;
+  text-align: initial;
+  background: var(--bloomary-soft-gray);
+}
+
+.app-viewport {
+  --app-design-width: 384px;
+  --app-design-height: 832px;
+  --app-content-width: 375px;
+  --app-content-height: 812px;
+  --app-scale: 1;
+
+  position: relative;
+  width: calc(var(--app-design-width) * var(--app-scale));
+  min-height: calc(var(--app-design-height) * var(--app-scale));
+  margin: 0 auto;
+  background: var(--bloomary-soft-gray);
+}
+
 .app-page {
   position: relative;
-  width: 375px;
-  min-height: 812px;
-  margin: 0 auto;
+  width: var(--app-content-width);
+  min-height: var(--app-content-height);
+  margin: calc((var(--app-design-height) - var(--app-content-height)) / 2)
+    calc((var(--app-design-width) - var(--app-content-width)) / 2);
   background: var(--bloomary-surface);
   color: var(--bloomary-text);
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  overflow: hidden;
+  transform: scale(var(--app-scale));
+  transform-origin: top left;
+}
+
+:where(.app-page h1, .app-page h2, .app-page h3, .app-page p) {
+  color: inherit;
+  font-family: inherit;
+}
+
+:where(.app-page button) {
+  font-family: inherit;
+}
+
+@media (max-width: 480px) {
+  html,
+  body {
+    overflow: hidden;
+  }
+
+  #root {
+    height: 100svh;
+    min-height: 100svh;
+  }
+
+  .app-viewport {
+    --app-scale: calc(100vw / 384px);
+
+    width: 100vw;
+    height: 100svh;
+    min-height: 100svh;
+    overflow: hidden;
+    background: var(--bloomary-surface);
+  }
 }
 
 .page-back-button {
   position: absolute;
   z-index: 10;
-  top: 28px;
+  top: 17px;
   left: 10px;
   display: flex;
   align-items: center;
@@ -60,7 +134,7 @@
 .page-title {
   position: absolute;
   z-index: 1;
-  top: 36px;
+  top: 29px;
   left: 0;
   width: 100%;
   margin: 0;
