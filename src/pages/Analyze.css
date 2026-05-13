@@ -69,3 +69,8 @@
     top: 610px;
   }
 }
+
+.analyze-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
