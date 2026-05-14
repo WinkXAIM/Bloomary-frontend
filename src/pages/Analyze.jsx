@@ -7,6 +7,7 @@ import "./Analyze.css";
 
 function Analyze({ onBack, onAnalyze }) {
   const [preview, setPreview] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -14,6 +15,8 @@ function Analyze({ onBack, onAnalyze }) {
     if (!file) return;
 
     const imageUrl = URL.createObjectURL(file);
+
+    setSelectedFile(file);
     setPreview(imageUrl);
   };
 
@@ -41,7 +44,11 @@ function Analyze({ onBack, onAnalyze }) {
         />
       </label>
 
-      <AppButton className="analyze-button" onClick={onAnalyze}>
+      <AppButton 
+        className="analyze-button" 
+        onClick={onAnalyze}
+        disabled={!selectedFile}
+        >
         분석하기
       </AppButton>
     </PageShell>
