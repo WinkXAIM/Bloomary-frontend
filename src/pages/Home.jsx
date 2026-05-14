@@ -3,7 +3,7 @@ import PageShell from "../components/common/PageShell";
 import LeonSansLogo from "../components/LeonSansLogo";
 import "./Home.css";
 
-function Home({ onGoAnalyze, onGoHistory, onGoRecommend }) {
+function Home({ onGoAnalyze, onGoHistory, onGoRecommend, onLogout }) {
   return (
     <PageShell className="home-page">
       <LeonSansLogo text="Bloomary" size={32} color="#1a1a1a" />
@@ -37,7 +37,7 @@ function Home({ onGoAnalyze, onGoHistory, onGoRecommend }) {
         📋 분석 히스토리 보기
       </AppButton>
 
-      <AppButton className="logout-button" variant="ghost">
+      <AppButton className="logout-button" variant="ghost" onClick={onLogout}>
         로그아웃
       </AppButton>
     </PageShell>

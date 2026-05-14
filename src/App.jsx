@@ -41,6 +41,10 @@ function App() {
             onGoAnalyze={() => navigate("/analyze")}
             onGoHistory={() => navigate("/history")}
             onGoRecommend={() => navigate("/recommend")}
+            onLogout={() => {
+              localStorage.removeItem("isLoggedIn");
+              navigate("/");
+            }}
           />
         }
       />
