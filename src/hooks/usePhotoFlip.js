@@ -7,6 +7,7 @@ const PHOTO_INTENT_THRESHOLD = 12;
 const PHOTO_TAP_MOVE_THRESHOLD = 24;
 const PHOTO_FLIP_DISTANCE = 360;
 const PHOTO_AUTO_ROTATE_DURATION = 1200;
+const PHOTO_INTRO_ROTATE_DURATION = 900;
 const PHOTO_AUTO_ROTATE_LOCK_PROGRESS = 0.75;
 
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
@@ -67,7 +68,7 @@ function usePhotoFlip({ isCardDragging }) {
     return Math.floor((rotation - 0.001) / 180) * 180;
   };
 
-  const animatePhotoRotation = (flowerName, startRotation, targetRotation) => {
+  const animatePhotoRotation = (flowerName, startRotation, targetRotation, duration = PHOTO_AUTO_ROTATE_DURATION) => {
     window.cancelAnimationFrame(photoAnimationRef.current[flowerName]);
     photoAnimationTargetRef.current[flowerName] = targetRotation;
 
@@ -75,7 +76,7 @@ function usePhotoFlip({ isCardDragging }) {
 
     const animate = (currentTime) => {
       startTime ??= currentTime;
-      const progress = Math.min((currentTime - startTime) / PHOTO_AUTO_ROTATE_DURATION, 1);
+      const progress = Math.min((currentTime - startTime) / duration, 1);
       const rotation = startRotation + (targetRotation - startRotation) * easeInOut(progress);
 
       photoAnimationProgressRef.current[flowerName] = progress;
@@ -289,6 +290,9 @@ function usePhotoFlip({ isCardDragging }) {
     isPhotoBackSide,
     isPhotoDragging: (flowerName) => Math.abs(photoDragOffsets[flowerName] ?? 0) > 0,
     isPhotoSettled: (flowerName) => Boolean(settledPhotos[flowerName]),
+    playIntroRotation: (flowerName) => {
+      animatePhotoRotation(flowerName, photoRotationsRef.current[flowerName] ?? 0, 180, PHOTO_INTRO_ROTATE_DURATION);
+    },
     resetTouchedPhoto: (flowerName) => {
       setTouchedPhotos((current) => ({
         ...current,

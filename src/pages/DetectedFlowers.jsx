@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import AppButton from "../components/common/AppButton";
 import BackButton from "../components/common/BackButton";
 import PageShell from "../components/common/PageShell";
@@ -13,6 +14,8 @@ const DOT_ACTIVE_WIDTH = 18;
 const CARD_STEP = 315;
 
 function DetectedFlowers({ onBack, onGoResult }) {
+  const hasPlayedIntroRef = useRef(false);
+  const [hasIntroCompleted, setHasIntroCompleted] = useState(false);
   const photoFlip = usePhotoFlip({
     isCardDragging: () => cardSwipe.isDragging(),
   });
@@ -24,6 +27,28 @@ function DetectedFlowers({ onBack, onGoResult }) {
       photoFlip.resetTouchedPhoto(detectedFlowers[index].name);
     },
   });
+
+  useEffect(() => {
+    if (hasPlayedIntroRef.current || detectedFlowers.length === 0) {
+      return;
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      if (hasPlayedIntroRef.current) {
+        return;
+      }
+
+      hasPlayedIntroRef.current = true;
+      photoFlip.playIntroRotation(detectedFlowers[0].name);
+      window.setTimeout(() => {
+        setHasIntroCompleted(true);
+      }, 860);
+    }, 80);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
+  }, [photoFlip]);
 
   return (
     <PageShell className="detected-page">
@@ -51,6 +76,7 @@ function DetectedFlowers({ onBack, onGoResult }) {
             const isDraggingPhoto = photoFlip.isPhotoDragging(flower.name);
             const shouldShowHint =
               cardSwipe.activeIndex === index &&
+              !(index === 0 && !hasIntroCompleted) &&
               !isBackSide &&
               !isDraggingPhoto &&
               !photoFlip.wasPhotoTouched(flower.name);
