@@ -1,145 +1,281 @@
-.detected-image-box {
+.detected-card-slider {
   position: absolute;
-  top: 92px;
+  top: 89px;
   left: 40px;
   width: 295px;
-  height: 280px;
-  border-radius: 5px;
-  background: #f2f2f2;
+  overflow: visible;
+  overscroll-behavior-x: contain;
+  touch-action: pan-y;
+  user-select: none;
 }
 
-.flower-box {
-  position: absolute;
-  border: 2px solid #1a1a1a;
-  border-radius: 6px;
+.detected-card-track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
 }
 
-.flower-box span {
-  position: absolute;
-  top: -22px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 13px;
-  white-space: nowrap;
-}
-
-.rose {
-  top: 60px;
-  left: 40px;
-  width: 70px;
-  height: 85px;
-}
-
-.tulip {
-  top: 70px;
-  left: 130px;
-  width: 65px;
-  height: 80px;
-}
-
-.baby {
-  top: 90px;
-  left: 220px;
-  width: 60px;
-  height: 70px;
-}
-
-.detected-section-title {
-  position: absolute;
-  top: 392px;
-  left: 40px;
-  margin: 0;
-  font-size: 14px;
-}
-
-.detected-line {
-  position: absolute;
-  top: 417px;
-  left: 40px;
-  width: 295px;
-}
-
-.detected-list {
-  position: absolute;
-  top: 437px;
-  left: 40px;
-  width: 295px;
-}
-
-.detected-item {
+.detected-flower-card {
   position: relative;
-  height: 60px;
-  margin-bottom: 0;
-  padding-left: 16px;
+  display: flex;
+  flex: 0 0 295px;
+  flex-direction: column;
+  align-items: center;
+  min-height: 477px;
+  padding: 0 21px;
+  box-sizing: border-box;
+  color: #ffffff;
 }
 
-.item-bar {
+.detected-flower-card::before {
+  content: "";
   position: absolute;
-  left: 0;
   top: 0;
-  width: 4px;
-  height: 40px;
-  background: #1a1a1a;
-  border-radius: 2px;
+  left: 0;
+  width: 295px;
+  height: 477px;
+  border-radius: 13px;
+  background: #262626;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.detected-item h2 {
+.detected-flower-photo,
+.detected-flower-info {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 253px;
+}
+
+.detected-flower-photo {
+  height: 342px;
+  margin-top: 34px;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  overflow: visible;
+  perspective: 900px;
+}
+
+.detected-flower-photo.photo-dragging,
+.detected-flower-photo.flipped {
+  z-index: 3;
+}
+
+.detected-photo-inner {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: rotateY(var(--photo-rotation, 0deg));
+  transition: transform 2.2s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-style: preserve-3d;
+}
+
+.detected-flower-photo.photo-dragging .detected-photo-inner {
+  transition-duration: 0s;
+}
+
+.detected-flower-photo.hint .detected-photo-inner {
+  animation: photo-flip-hint 0.86s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
+}
+
+@keyframes photo-flip-hint {
+  0% {
+    transform: rotateY(0deg);
+  }
+
+  42% {
+    transform: rotateY(-13deg);
+  }
+
+  68% {
+    transform: rotateY(7deg);
+  }
+
+  100% {
+    transform: rotateY(0deg);
+  }
+}
+
+.detected-photo-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  backface-visibility: hidden;
+  overflow: hidden;
+}
+
+.detected-photo-front {
+  background-color: #f2f2f2;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.detected-photo-back {
+  background: #f2f2f2;
+  transform: rotateY(180deg);
+}
+
+.detected-bloom-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.rose-photo .detected-photo-front {
+  background-image: url("https://commons.wikimedia.org/wiki/Special:FilePath/Red_rose_up_close.jpg?width=700");
+  background-position: center;
+}
+
+.tulip-photo .detected-photo-front {
+  background-image: url("https://commons.wikimedia.org/wiki/Special:FilePath/Tulip_Tulipa_%27Juan%27_Flower_2836px.jpg?width=700");
+  background-position: center;
+}
+
+.baby-photo .detected-photo-front {
+  background-image: url("https://commons.wikimedia.org/wiki/Special:FilePath/Close-up_of_baby%27s_breath_%28Gypsophila_paniculata%29_flowers.jpg?width=700");
+  background-position: center;
+}
+
+.gerbera-photo .detected-photo-front {
+  background-image: url("https://commons.wikimedia.org/wiki/Special:FilePath/Gerbera_flower_yellow.JPG?width=700");
+  background-position: center;
+}
+
+.lily-photo .detected-photo-front {
+  background-image: url("https://commons.wikimedia.org/wiki/Special:FilePath/Easter_lily_%28Lilium_longiflorum%29.jpg?width=700");
+  background-position: center;
+}
+
+.delphinium-photo .detected-photo-front {
+  background-image: url("https://commons.wikimedia.org/wiki/Special:FilePath/Larkspur_Delphinium_glaucum_closeup.jpg?width=700");
+  background-position: center;
+}
+
+
+.detected-flower-info {
+  padding: 13px 13px 0;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.detected-flower-info h2 {
+  margin: 0 0 8px;
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.detected-flower-info p {
   margin: 0;
-  font-size: 18px;
-  font-weight: 600;
+  color: #d6d6d6;
+  font-size: 15px;
+  line-height: 1.4;
 }
 
-.detected-item p {
-  margin: 4px 0 0;
-  color: #8c8c8c;
-  font-size: 14px;
+.detected-card-dots {
+  position: absolute;
+  top: 587px;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.detected-card-dot {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: #d9d9d9;
+  cursor: pointer;
+  transition:
+    width 0.36s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.28s ease,
+    border-radius 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.detected-card-dot.active {
+  border-radius: 999px;
+  background: #1a1a1a;
+}
+
+.detected-actions {
+  position: absolute;
+  top: 621px;
+  left: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  width: 295px;
 }
 
 .flower-meaning-button {
-  position: absolute;
-  top: 672px;
-  left: 40px;
-  width: 295px;
+  width: 100%;
   height: 50px;
   font-size: 14px;
 }
 
 .retry-button {
-  position: absolute;
-  top: 734px;
-  left: 40px;
-  width: 295px;
+  width: 100%;
   height: 44px;
   font-size: 14px;
 }
 
+@media (max-width: 480px) {
+  .detected-card-slider {
+    top: 89px;
+  }
+
+  .detected-card-dots {
+    top: 587px;
+  }
+
+  .detected-actions {
+    top: 621px;
+  }
+}
+
 @media (max-width: 480px) and (max-height: 760px) {
-  .detected-image-box {
-    top: 80px;
-    height: 230px;
+  .detected-card-slider {
+    top: 76px;
   }
 
-  .detected-section-title {
-    top: 328px;
+  .detected-flower-card {
+    min-height: 425px;
   }
 
-  .detected-line {
-    top: 353px;
+  .detected-flower-card::before {
+    height: 425px;
   }
 
-  .detected-list {
-    top: 372px;
+  .detected-flower-photo {
+    height: 283px;
+    margin-top: 26px;
   }
 
-  .detected-item {
-    height: 52px;
+  .detected-flower-info {
+    padding-top: 21px;
   }
 
-  .flower-meaning-button {
-    top: 582px;
+  .detected-card-dots {
+    top: 522px;
   }
 
-  .retry-button {
-    top: 638px;
+  .detected-actions {
+    top: 556px;
+    gap: 8px;
   }
 }
