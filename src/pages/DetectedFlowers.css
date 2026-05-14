@@ -3,10 +3,12 @@
   top: 89px;
   left: 40px;
   width: 295px;
+  animation: detected-slider-enter 0.78s cubic-bezier(0.16, 1, 0.3, 1) both;
   overflow: visible;
   overscroll-behavior-x: contain;
   touch-action: pan-y;
   user-select: none;
+  -webkit-user-select: none;
 }
 
 .detected-card-track {
@@ -16,6 +18,14 @@
   transition-property: transform;
   transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform;
+}
+
+.detected-card-slider.edge-left {
+  animation: detected-edge-left 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.detected-card-slider.edge-right {
+  animation: detected-edge-right 0.34s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .detected-flower-card {
@@ -28,6 +38,13 @@
   padding: 0 21px;
   box-sizing: border-box;
   color: #ffffff;
+  opacity: var(--card-opacity, 1);
+  transform: translateY(var(--card-translate-y, 0)) scale(var(--card-scale, 1));
+  transform-origin: center center;
+  transition:
+    transform var(--card-transition-duration, 0.28s) cubic-bezier(0.22, 1, 0.36, 1),
+    opacity var(--card-transition-duration, 0.28s) ease;
+  will-change: transform, opacity;
 }
 
 .detected-flower-card::before {
@@ -51,6 +68,7 @@
 }
 
 .detected-flower-photo {
+  position: relative;
   height: 342px;
   margin-top: 34px;
   padding: 0;
@@ -60,6 +78,25 @@
   cursor: pointer;
   overflow: visible;
   perspective: 900px;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.detected-flower-photo::before {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.detected-flower-photo::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border: 2px solid rgba(38, 38, 38, 0);
+  border-radius: 11px;
+  pointer-events: none;
 }
 
 .detected-flower-photo.photo-dragging,
@@ -72,17 +109,40 @@
   display: block;
   width: 100%;
   height: 100%;
+  z-index: 1;
   transform: rotateY(var(--photo-rotation, 0deg));
   transition: transform 2.2s cubic-bezier(0.22, 1, 0.36, 1);
   transform-style: preserve-3d;
 }
 
-.detected-flower-photo.photo-dragging .detected-photo-inner {
+.detected-flower-photo:active .detected-photo-inner {
+  transform: rotateY(var(--photo-rotation, 0deg)) scale(0.992);
+}
+
+.detected-flower-photo.photo-dragging .detected-photo-inner,
+.detected-flower-photo.photo-auto-rotating .detected-photo-inner {
   transition-duration: 0s;
+}
+
+.detected-flower-photo.photo-dragging:active .detected-photo-inner,
+.detected-flower-photo.photo-auto-rotating:active .detected-photo-inner {
+  transform: rotateY(var(--photo-rotation, 0deg));
+}
+
+.detected-flower-photo.photo-settled::after {
+  animation: photo-settle-ring 0.36s ease-out both;
+}
+
+.detected-flower-photo.photo-settled .detected-photo-inner {
+  animation: photo-settle-pop 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .detected-flower-photo.hint .detected-photo-inner {
   animation: photo-flip-hint 0.86s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
+}
+
+.detected-flower-photo.hint.hint-reverse .detected-photo-inner {
+  animation-name: photo-flip-hint-reverse;
 }
 
 @keyframes photo-flip-hint {
@@ -100,6 +160,92 @@
 
   100% {
     transform: rotateY(0deg);
+  }
+}
+
+@keyframes photo-flip-hint-reverse {
+  0% {
+    transform: rotateY(0deg);
+  }
+
+  42% {
+    transform: rotateY(13deg);
+  }
+
+  68% {
+    transform: rotateY(-7deg);
+  }
+
+  100% {
+    transform: rotateY(0deg);
+  }
+}
+
+@keyframes photo-settle-pop {
+  0% {
+    transform: rotateY(var(--photo-rotation, 0deg)) scale(1);
+  }
+
+  42% {
+    transform: rotateY(var(--photo-rotation, 0deg)) scale(1.018);
+  }
+
+  100% {
+    transform: rotateY(var(--photo-rotation, 0deg)) scale(1);
+  }
+}
+
+@keyframes photo-settle-ring {
+  0% {
+    border-color: rgba(38, 38, 38, 0);
+    opacity: 0;
+    transform: scale(0.98);
+  }
+
+  34% {
+    border-color: rgba(38, 38, 38, 0.45);
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  100% {
+    border-color: rgba(38, 38, 38, 0);
+    opacity: 0;
+    transform: scale(1.025);
+  }
+}
+
+@keyframes detected-slider-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(58px) scale(0.93);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes detected-edge-left {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  42% {
+    transform: translateX(9px);
+  }
+}
+
+@keyframes detected-edge-right {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  42% {
+    transform: translateX(-9px);
   }
 }
 
@@ -122,7 +268,9 @@
 }
 
 .detected-photo-back {
-  background: #f2f2f2;
+  border: 2px solid #262626;
+  background: #ffffff;
+  box-sizing: border-box;
   transform: rotateY(180deg);
 }
 

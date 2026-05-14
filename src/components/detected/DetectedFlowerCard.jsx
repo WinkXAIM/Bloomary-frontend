@@ -4,9 +4,13 @@ function DetectedFlowerCard({
   flower,
   isBackSide,
   isDraggingPhoto,
+  isPhotoAutoRotating,
+  isPhotoSettled,
   shouldShowHint,
+  hintDirection,
   photoRotation,
   bloomProgress,
+  style,
   onCardClick,
   onPhotoPointerDown,
   onPhotoPointerMove,
@@ -17,13 +21,16 @@ function DetectedFlowerCard({
     flower.imageClass,
     isBackSide ? "flipped" : "",
     shouldShowHint ? "hint" : "",
+    shouldShowHint && hintDirection < 0 ? "hint-reverse" : "",
     isDraggingPhoto ? "photo-dragging" : "",
+    isPhotoAutoRotating ? "photo-auto-rotating" : "",
+    isPhotoSettled ? "photo-settled" : "",
   ]
     .filter(Boolean)
     .join(" ");
 
   return (
-    <article className="detected-flower-card" onClick={onCardClick}>
+    <article className="detected-flower-card" style={style} onClick={onCardClick}>
       <button
         type="button"
         className={photoClassName}
