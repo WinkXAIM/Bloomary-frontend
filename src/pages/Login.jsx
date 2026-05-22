@@ -1,25 +1,10 @@
-import { useEffect } from "react";
 import PageShell from "../components/common/PageShell";
 import LeonSansLogo from "../components/LeonSansLogo";
 import "./Login.css";
 
 function Login({ onLogin }) {
-  useEffect(() => {
-    if (window.Kakao && !window.Kakao.isInitialized()) {
-      window.Kakao.init("40de8269c06809463d8206e48eeabd26");
-      console.log("Kakao SDK initialized");
-    }
-  }, []);
-
   const handleKakaoLogin = () => {
-    if (!window.Kakao) {
-      onLogin();
-      return;
-    }
-
-    window.Kakao.Auth.authorize({
-      redirectUri: "http://localhost:5174",
-    });
+    window.location.href = "http://localhost:8080/auth/kakao";
   };
 
   return (
