@@ -1,6 +1,15 @@
 import { useEffect, useRef } from "react";
 
-function LeonSansLogo({ text = "Bloomary", size = 50, color = "#1a1a1a" }) {
+function LeonSansLogo({
+  text = "Bloomary",
+  size = 50,
+  color = "#1a1a1a",
+  width = 280,
+  height = 80,
+  loop = false,
+  loopDuration = 2400,
+  className = "",
+}) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -10,8 +19,6 @@ function LeonSansLogo({ text = "Bloomary", size = 50, color = "#1a1a1a" }) {
     const ctx = canvas.getContext("2d");
     const pixelRatio = window.devicePixelRatio || 1;
 
-    const width = 280;
-    const height = 80;
     canvas.width = width * pixelRatio;
     canvas.height = height * pixelRatio;
     canvas.style.width = width + "px";
@@ -51,17 +58,31 @@ function LeonSansLogo({ text = "Bloomary", size = 50, color = "#1a1a1a" }) {
       leon.position(x, y);
 
       leon.draw(ctx);
-      requestAnimationFrame(animate);
+      animationFrameId = requestAnimationFrame(animate);
     };
+
+    let animationFrameId;
+    let animationTimerId;
 
     startAnimation();
     animate();
-  }, [text, size, color]);
+
+    if (loop) {
+      animationTimerId = window.setInterval(startAnimation, loopDuration);
+    }
+
+    return () => {
+      window.cancelAnimationFrame(animationFrameId);
+      if (animationTimerId) {
+        window.clearInterval(animationTimerId);
+      }
+    };
+  }, [text, size, color, width, height, loop, loopDuration]);
 
   return (
     <canvas
       ref={canvasRef}
-      className="leon-sans-logo"
+      className={`leon-sans-logo ${className}`.trim()}
       style={{
         display: "block",
         margin: "0 auto",

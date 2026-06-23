@@ -28,6 +28,11 @@
   color: #8c8c8c;
 }
 
+.recommend-input:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
 .recommend-submit-button {
   position: absolute;
   top: 406px;
