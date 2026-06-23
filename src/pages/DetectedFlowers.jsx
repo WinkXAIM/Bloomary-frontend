@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import AppButton from "../components/common/AppButton";
 import BackButton from "../components/common/BackButton";
+import LoadingOverlay from "../components/common/LoadingOverlay";
 import PageShell from "../components/common/PageShell";
 import PageTitle from "../components/common/PageTitle";
 import DetectedFlowerCard from "../components/detected/DetectedFlowerCard";
@@ -12,10 +13,17 @@ import "./DetectedFlowers.css";
 const DOT_SIZE = 7;
 const DOT_ACTIVE_WIDTH = 18;
 const CARD_STEP = 315;
+const LOADING_DELAY_MS = 3000;
+
+const COPY = {
+  loadingTitle: "\uaf43\ub9d0\uc744 \ub9cc\ub4e4\uace0 \uc788\uc5b4\uc694",
+  loadingDescription: "\uc778\uc2dd\ub41c \uaf43\uc744 \ubc14\ud0d5\uc73c\ub85c \uac10\uc131 \ubb38\uad6c\ub97c \uc900\ube44\ud558\ub294 \uc911\uc785\ub2c8\ub2e4.",
+};
 
 function DetectedFlowers({ onBack, onGoResult }) {
   const hasPlayedIntroRef = useRef(false);
   const [hasIntroCompleted, setHasIntroCompleted] = useState(false);
+  const [isCreatingMeaning, setIsCreatingMeaning] = useState(false);
   const photoFlip = usePhotoFlip({
     isCardDragging: () => cardSwipe.isDragging(),
   });
@@ -49,6 +57,16 @@ function DetectedFlowers({ onBack, onGoResult }) {
       window.clearTimeout(timeoutId);
     };
   }, [photoFlip]);
+
+  const handleGoResult = () => {
+    if (isCreatingMeaning) return;
+
+    setIsCreatingMeaning(true);
+    window.setTimeout(() => {
+      onGoResult();
+      setIsCreatingMeaning(false);
+    }, LOADING_DELAY_MS);
+  };
 
   return (
     <PageShell className="detected-page">
@@ -121,7 +139,11 @@ function DetectedFlowers({ onBack, onGoResult }) {
       </div>
 
       <div className="detected-actions">
-        <AppButton className="flower-meaning-button" onClick={onGoResult}>
+        <AppButton
+          className="flower-meaning-button"
+          disabled={isCreatingMeaning}
+          onClick={handleGoResult}
+        >
           꽃말 확인하기
         </AppButton>
 
@@ -129,6 +151,11 @@ function DetectedFlowers({ onBack, onGoResult }) {
           인식이 잘못되었나요? 다시 촬영해보세요
         </AppButton>
       </div>
+      <LoadingOverlay
+        isOpen={isCreatingMeaning}
+        title={COPY.loadingTitle}
+        description={COPY.loadingDescription}
+      />
     </PageShell>
   );
 }
