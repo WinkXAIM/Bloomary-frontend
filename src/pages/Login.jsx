@@ -3,6 +3,8 @@ import PageShell from "../components/common/PageShell";
 import LeonSansLogo from "../components/LeonSansLogo";
 import "./Login.css";
 
+const KAKAO_REDIRECT_URI = import.meta.env.VITE_KAKAO_REDIRECT_URI;
+
 function Login({ onLogin }) {
   useEffect(() => {
     if (window.Kakao && !window.Kakao.isInitialized()) {
@@ -18,7 +20,7 @@ function Login({ onLogin }) {
     }
 
     window.Kakao.Auth.authorize({
-      redirectUri: "http://localhost:5174",
+      redirectUri: KAKAO_REDIRECT_URI,
     });
   };
 
