@@ -2,9 +2,18 @@ import PageShell from "../components/common/PageShell";
 import LeonSansLogo from "../components/LeonSansLogo";
 import "./Login.css";
 
+const KAKAO_REDIRECT_URI = import.meta.env.VITE_KAKAO_REDIRECT_URI;
+
 function Login({ onLogin }) {
   const handleKakaoLogin = () => {
-    window.location.href = "http://localhost:8080/auth/kakao";
+    if (!window.Kakao) {
+      onLogin();
+      return;
+    }
+
+    window.Kakao.Auth.authorize({
+      redirectUri: KAKAO_REDIRECT_URI,
+    });
   };
 
   return (
