@@ -269,6 +269,68 @@ function drawGerberaBloom(context, bloom, width, height, progress) {
   context.globalAlpha = 1;
 }
 
+function drawSunflowerBloom(context, bloom, width, height, progress) {
+  const centerX = width / 2;
+  const centerY = height * 0.46;
+  const bloomProgress = getFastBloomProgress(progress);
+  const openProgress = easeInOut(bloomProgress);
+
+  drawStem(context, bloom, width, height, centerX, centerY);
+
+  for (let index = 0; index < 34; index += 1) {
+    const angle = (Math.PI * 2 * index) / 34 - Math.PI / 2;
+    const radius = 17 * openProgress;
+    const petalLength = 18 + 42 * openProgress;
+    const petalWidth = 4 + 7 * openProgress;
+
+    context.save();
+    context.translate(centerX + Math.cos(angle) * radius, centerY + Math.sin(angle) * radius);
+    context.rotate(angle);
+    context.globalAlpha = 0.1 + 0.9 * openProgress;
+    context.fillStyle = index % 2 === 0 ? bloom.petal : bloom.petalDark;
+    context.beginPath();
+    context.moveTo(0, 0);
+    context.bezierCurveTo(
+      petalLength * 0.18,
+      -petalWidth,
+      petalLength * 0.78,
+      -petalWidth * 0.8,
+      petalLength,
+      0,
+    );
+    context.bezierCurveTo(
+      petalLength * 0.78,
+      petalWidth * 0.8,
+      petalLength * 0.18,
+      petalWidth,
+      0,
+      0,
+    );
+    context.fill();
+    context.restore();
+  }
+
+  const centerRadius = 16 + 12 * openProgress;
+  context.fillStyle = bloom.center;
+  context.beginPath();
+  context.arc(centerX, centerY, centerRadius, 0, Math.PI * 2);
+  context.fill();
+
+  context.fillStyle = bloom.petalDark;
+  context.globalAlpha = 0.52;
+  for (let index = 0; index < 22; index += 1) {
+    const angle = (Math.PI * 2 * index) / 22;
+    const dotRadius = centerRadius * (0.22 + (index % 4) * 0.13) * openProgress;
+    const dotX = centerX + Math.cos(angle) * dotRadius;
+    const dotY = centerY + Math.sin(angle) * dotRadius;
+
+    context.beginPath();
+    context.arc(dotX, dotY, 1.4 + 1.2 * openProgress, 0, Math.PI * 2);
+    context.fill();
+  }
+  context.globalAlpha = 1;
+}
+
 function drawLilyBloom(context, bloom, width, height, progress) {
   const centerX = width / 2;
   const centerY = height * 0.46;
@@ -370,10 +432,12 @@ function drawLineBloom(context, bloom, width, height, progress) {
 
 const bloomDrawers = {
   baby: drawBabyBreathBloom,
+  daisy: drawGerberaBloom,
   gerbera: drawGerberaBloom,
   lily: drawLilyBloom,
   line: drawLineBloom,
   rose: drawRoseBloom,
+  sunflower: drawSunflowerBloom,
   tulip: drawTulipBloom,
 };
 

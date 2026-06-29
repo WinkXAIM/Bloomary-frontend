@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const PHOTO_FLIP_THRESHOLD = 84;
 const PHOTO_FLICK_THRESHOLD = 28;
@@ -25,6 +25,20 @@ function usePhotoFlip({ isCardDragging }) {
   const photoAnimationTargetRef = useRef({});
   const photoRotationsRef = useRef({});
   const photoSettleTimeoutRef = useRef({});
+
+  useEffect(() => {
+    const animationRef = photoAnimationRef;
+    const settleTimeoutRef = photoSettleTimeoutRef;
+
+    return () => {
+      Object.values(animationRef.current).forEach((animationId) => {
+        window.cancelAnimationFrame(animationId);
+      });
+      Object.values(settleTimeoutRef.current).forEach((timeoutId) => {
+        window.clearTimeout(timeoutId);
+      });
+    };
+  }, []);
 
   const playPhotoSettleFeedback = (flowerName) => {
     window.clearTimeout(photoSettleTimeoutRef.current[flowerName]);

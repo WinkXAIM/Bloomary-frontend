@@ -12,6 +12,10 @@
   top: 132px;
   left: 20px;
   width: 335px;
+  max-height: 585px;
+  overflow-y: auto;
+  padding-right: 2px;
+  box-sizing: border-box;
 }
 
 .history-card {
@@ -80,33 +84,6 @@
   text-overflow: ellipsis;
 }
 
-.history-delete-button {
-  position: absolute;
-  right: 76px;
-  bottom: 12px;
-  top: auto;
-  left: auto;
-  width: 56px;
-  height: 28px;
-  font-size: 12px;
-  font-weight: 500;
-  border: 1px solid #e0e0e0;
-  border-radius: 5px;
-  background: #ffffff;
-  color: #8c8c8c;
-  cursor: pointer;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.history-delete-button:hover {
-  background: #fff5f5;
-  border-color: #ffb3b3;
-  color: #e53935;
-}
-
 .history-view-button {
   position: absolute;
   right: 12px;
@@ -167,6 +144,7 @@
 
   .history-list {
     top: 108px;
+    max-height: 510px;
   }
 
   .history-card {

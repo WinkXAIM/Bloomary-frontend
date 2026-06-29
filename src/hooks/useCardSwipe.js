@@ -25,9 +25,16 @@ function useCardSwipe({ cardStep, itemCount, onCardChange }) {
   const dragDistanceRef = useRef(0);
   const suppressClickRef = useRef(false);
 
-  const getSafeIndex = (index) => clamp(index, 0, itemCount - 1);
+  const getSafeIndex = (index) => {
+    if (itemCount <= 0) return 0;
+    return clamp(index, 0, itemCount - 1);
+  };
 
   const getSliderDragOffset = (distance) => {
+    if (itemCount <= 1) {
+      return distance * EDGE_DRAG_RESISTANCE;
+    }
+
     const isFirstCard = activeIndex === 0;
     const isLastCard = activeIndex === itemCount - 1;
     const isDraggingPastStart = isFirstCard && distance > 0;
@@ -45,6 +52,12 @@ function useCardSwipe({ cardStep, itemCount, onCardChange }) {
   };
 
   const snapToCard = (index) => {
+    if (itemCount <= 0) {
+      setActiveIndex(0);
+      setDragOffset(0);
+      return;
+    }
+
     const safeIndex = getSafeIndex(index);
 
     if (safeIndex !== activeIndex) {
@@ -62,6 +75,10 @@ function useCardSwipe({ cardStep, itemCount, onCardChange }) {
   };
 
   const handlePointerDown = (event) => {
+    if (itemCount <= 1) {
+      return;
+    }
+
     if (event.button !== undefined && event.button !== 0) {
       return;
     }
@@ -171,6 +188,10 @@ function useCardSwipe({ cardStep, itemCount, onCardChange }) {
   };
 
   const handleCardClick = (event) => {
+    if (itemCount <= 1) {
+      return;
+    }
+
     if (suppressClickRef.current || event.target.closest(".detected-flower-photo")) {
       return;
     }
