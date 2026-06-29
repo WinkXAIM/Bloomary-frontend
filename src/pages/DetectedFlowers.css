@@ -267,6 +267,15 @@
   background-size: cover;
 }
 
+.detected-flower-crop-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+}
+
 .detected-photo-back {
   border: 2px solid #262626;
   background: #ffffff;
@@ -279,37 +288,6 @@
   width: 100%;
   height: 100%;
 }
-
-.rose-photo .detected-photo-front {
-  background-image: url("https://commons.wikimedia.org/wiki/Special:FilePath/Red_rose_up_close.jpg?width=700");
-  background-position: center;
-}
-
-.tulip-photo .detected-photo-front {
-  background-image: url("https://commons.wikimedia.org/wiki/Special:FilePath/Tulip_Tulipa_%27Juan%27_Flower_2836px.jpg?width=700");
-  background-position: center;
-}
-
-.baby-photo .detected-photo-front {
-  background-image: url("https://commons.wikimedia.org/wiki/Special:FilePath/Close-up_of_baby%27s_breath_%28Gypsophila_paniculata%29_flowers.jpg?width=700");
-  background-position: center;
-}
-
-.gerbera-photo .detected-photo-front {
-  background-image: url("https://commons.wikimedia.org/wiki/Special:FilePath/Gerbera_flower_yellow.JPG?width=700");
-  background-position: center;
-}
-
-.lily-photo .detected-photo-front {
-  background-image: url("https://commons.wikimedia.org/wiki/Special:FilePath/Easter_lily_%28Lilium_longiflorum%29.jpg?width=700");
-  background-position: center;
-}
-
-.delphinium-photo .detected-photo-front {
-  background-image: url("https://commons.wikimedia.org/wiki/Special:FilePath/Larkspur_Delphinium_glaucum_closeup.jpg?width=700");
-  background-position: center;
-}
-
 
 .detected-flower-info {
   padding: 13px 13px 0;

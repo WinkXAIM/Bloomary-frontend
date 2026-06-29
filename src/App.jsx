@@ -1,109 +1,159 @@
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 
-import Login from "./pages/Login";
-import Home from "./pages/Home";
-import Analyze from "./pages/Analyze";
-import DetectedFlowers from "./pages/DetectedFlowers";
-import Result from "./pages/Result";
-import StoryPreview from "./pages/StoryPreview";
-import History from "./pages/History";
-import Recommend from "./pages/Recommend";
+import { checkAuth, signOut } from "./api/bloomaryApi";
+import LoadingOverlay from "./components/common/LoadingOverlay";
+
+const Login = lazy(() => import("./pages/Login"));
+const Home = lazy(() => import("./pages/Home"));
+const Analyze = lazy(() => import("./pages/Analyze"));
+const DetectedFlowers = lazy(() => import("./pages/DetectedFlowers"));
+const Result = lazy(() => import("./pages/Result"));
+const StoryPreview = lazy(() => import("./pages/StoryPreview"));
+const History = lazy(() => import("./pages/History"));
+const Recommend = lazy(() => import("./pages/Recommend"));
+
+const PROTECTED_PATHS = new Set([
+  "/home",
+  "/analyze",
+  "/detected",
+  "/result",
+  "/story",
+  "/history",
+  "/recommend",
+]);
 
 function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(location.search);
-    const code = urlParams.get("code");
+    let isActive = true;
+    const isProtectedPath = PROTECTED_PATHS.has(location.pathname);
 
-    if (code) {
-      console.log("Kakao login success. auth code:", code);
-      localStorage.setItem("isLoggedIn", "true");
-      navigate("/home", { replace: true });
-      return;
+    if (!isProtectedPath && location.pathname !== "/") {
+      return undefined;
     }
 
-    const isLoggedIn = localStorage.getItem("isLoggedIn");
-    if (isLoggedIn === "true" && location.pathname === "/") {
-      navigate("/home", { replace: true });
-    }
-  }, [location.pathname, location.search, navigate]);
+    checkAuth().then((isAuthenticated) => {
+      if (!isActive) return;
+
+      if (isProtectedPath && !isAuthenticated) {
+        navigate("/", { replace: true });
+        return;
+      }
+
+      if (location.pathname === "/" && isAuthenticated) {
+        navigate("/home", { replace: true });
+      }
+    });
+
+    return () => {
+      isActive = false;
+    };
+  }, [location.pathname, navigate]);
 
   return (
-    <Routes>
-      <Route path="/" element={<Login onLogin={() => navigate("/home")} />} />
-      <Route
-        path="/home"
-        element={
-          <Home
-            onGoAnalyze={() => navigate("/analyze")}
-            onGoHistory={() => navigate("/history")}
-            onGoRecommend={() => navigate("/recommend")}
-            onLogout={() => {
-              localStorage.removeItem("isLoggedIn");
-              navigate("/");
-            }}
-          />
-        }
-      />
-      <Route
-        path="/analyze"
-        element={
-          <Analyze
-            onBack={() => navigate("/home")}
-            onAnalyze={() => navigate("/detected")}
-          />
-        }
-      />
-      <Route
-        path="/detected"
-        element={
-          <DetectedFlowers
-            onBack={() => navigate("/analyze")}
-            onGoResult={() => navigate("/result", { state: { from: "/detected" } })}
-          />
-        }
-      />
-      <Route
-        path="/result"
-        element={
-          <Result
-            onBack={() => navigate(location.state?.from ?? "/detected")}
-            onGoStory={() =>
-              navigate("/story", {
-                state: { from: location.state?.from ?? "/detected" },
-              })
-            }
-          />
-        }
-      />
-      <Route
-        path="/story"
-        element={
-          <StoryPreview
-            onBack={() =>
-              navigate("/result", {
-                state: { from: location.state?.from ?? "/detected" },
-              })
-            }
-            onGoHome={() => navigate("/home")}
-          />
-        }
-      />
-      <Route
-        path="/history"
-        element={
-          <History
-            onBack={() => navigate("/home")}
-            onView={() => navigate("/result", { state: { from: "/history" } })}
-          />
-        }
-      />
-      <Route path="/recommend" element={<Recommend onBack={() => navigate("/home")} />} />
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+    <Suspense fallback={<LoadingOverlay isOpen />}>
+      <Routes>
+        <Route path="/" element={<Login onLogin={() => navigate("/home")} />} />
+        <Route
+          path="/home"
+          element={
+            <Home
+              onGoAnalyze={() => navigate("/analyze")}
+              onGoHistory={() => navigate("/history")}
+              onGoRecommend={() => navigate("/recommend")}
+              onLogout={async () => {
+                await signOut();
+                navigate("/");
+              }}
+            />
+          }
+        />
+        <Route
+          path="/analyze"
+          element={
+            <Analyze
+              onBack={() => navigate("/home")}
+              onAnalyze={(analysisInput) => navigate("/detected", { state: analysisInput })}
+            />
+          }
+        />
+        <Route
+          path="/detected"
+          element={
+            <DetectedFlowers
+              onBack={() => navigate("/analyze")}
+              onGoResult={(analysis, context = {}) =>
+                navigate("/result", {
+                  state: {
+                    from: "/detected",
+                    analysis,
+                    analysisId: analysis?.id,
+                    imageFile: context.imageFile,
+                  },
+                })
+              }
+            />
+          }
+        />
+        <Route
+          path="/result"
+          element={
+            <Result
+              onBack={() => navigate(location.state?.from ?? "/detected")}
+              onGoStory={(analysis, context = {}) =>
+                navigate("/story", {
+                  state: {
+                    from: location.state?.from ?? "/detected",
+                    analysis: analysis ?? location.state?.analysis,
+                    analysisId: analysis?.id ?? location.state?.analysisId,
+                    imageFile: context.imageFile ?? location.state?.imageFile,
+                  },
+                })
+              }
+            />
+          }
+        />
+        <Route
+          path="/story"
+          element={
+            <StoryPreview
+              onBack={() =>
+                navigate("/result", {
+                  state: {
+                    from: location.state?.from ?? "/detected",
+                    analysis: location.state?.analysis,
+                    analysisId: location.state?.analysisId,
+                    imageFile: location.state?.imageFile,
+                  },
+                })
+              }
+              onGoHome={() => navigate("/home")}
+            />
+          }
+        />
+        <Route
+          path="/history"
+          element={
+            <History
+              onBack={() => navigate("/home")}
+              onView={(analysisId) =>
+                navigate("/result", {
+                  state: {
+                    from: "/history",
+                    analysisId,
+                  },
+                })
+              }
+            />
+          }
+        />
+        <Route path="/recommend" element={<Recommend onBack={() => navigate("/home")} />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </Suspense>
   );
 }
 

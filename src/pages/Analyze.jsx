@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import AppButton from "../components/common/AppButton";
 import BackButton from "../components/common/BackButton";
 import LoadingOverlay from "../components/common/LoadingOverlay";
 import PageShell from "../components/common/PageShell";
 import PageTitle from "../components/common/PageTitle";
+import { classifyFlowers } from "../api/bloomaryApi";
 import "./Analyze.css";
 
 const COPY = {
@@ -16,29 +17,67 @@ const COPY = {
 };
 
 function Analyze({ onBack, onAnalyze }) {
+  const previewRef = useRef(null);
+  const analyzeAbortRef = useRef(null);
   const [preview, setPreview] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
 
     if (!file) return;
 
+    if (previewRef.current) {
+      URL.revokeObjectURL(previewRef.current);
+    }
+
     const imageUrl = URL.createObjectURL(file);
 
+    previewRef.current = imageUrl;
     setSelectedFile(file);
     setPreview(imageUrl);
+    setErrorMessage("");
   };
 
-  const handleAnalyze = () => {
+  useEffect(() => {
+    return () => {
+      analyzeAbortRef.current?.abort();
+      if (previewRef.current) {
+        URL.revokeObjectURL(previewRef.current);
+      }
+    };
+  }, []);
+
+  const handleAnalyze = async () => {
     if (!selectedFile || isAnalyzing) return;
 
     setIsAnalyzing(true);
-    window.setTimeout(() => {
-      onAnalyze();
-      setIsAnalyzing(false);
-    }, 3000);
+    setErrorMessage("");
+    analyzeAbortRef.current?.abort();
+    const abortController = new AbortController();
+    analyzeAbortRef.current = abortController;
+
+    try {
+      const flowers = await classifyFlowers(selectedFile, preview, {
+        signal: abortController.signal,
+      });
+      onAnalyze({
+        imageFile: selectedFile,
+        imageUrl: preview,
+        flowers,
+      });
+    } catch (error) {
+      if (error.name === "AbortError") return;
+
+      console.error("Failed to classify flowers.", error);
+      setErrorMessage(error.message || "\uaf43 \uc778\uc2dd\uc5d0 \uc2e4\ud328\ud588\uc5b4\uc694.");
+    } finally {
+      if (!abortController.signal.aborted) {
+        setIsAnalyzing(false);
+      }
+    }
   };
 
   return (
@@ -72,6 +111,11 @@ function Analyze({ onBack, onAnalyze }) {
       >
         {COPY.analyze}
       </AppButton>
+      {errorMessage ? (
+        <p className="section-label analyze-error-message">
+          {errorMessage}
+        </p>
+      ) : null}
       <LoadingOverlay
         isOpen={isAnalyzing}
         title={COPY.loadingTitle}
